@@ -14,6 +14,7 @@
 lpc.board = biqugtr_1.0
 sbc.lpcTfrReadyPin = B.10
 adc.prefilter.enable =true
+serial.aux.rxTxPins = {0.3, 0.2}
 
 //LED blinks to indicate Platform is spinning or other diagnostic 
 //Comment out or set to NoPin if not wanted.
