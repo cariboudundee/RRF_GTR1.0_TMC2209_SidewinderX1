@@ -1,3 +1,4 @@
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
  G28 XYZ
-G1 X184.5 Y147.5 F9000 ; Move probe to middle of bed
+G90
+G1 X282 Y48 Z5

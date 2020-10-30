@@ -26,11 +26,11 @@ M404 N1.75 D0.4                                           ; define filament and 
 ; Chopper Timing: The Marlin default chopper timing for 24V is defined as { 4, 2, 1 }. This is represented below as
 ; T4 Y1:2 parameters.
 ; =====================================================================================================================
-M569 P0 S0 D3 V40 T4 Y1:2                                 ; physical drive 0 goes forwards using default driver timings
-M569 P1 S0 D3 V40 T4 Y1:2                                 ; physical drive 1 goes forwards using default driver timings
-M569 P2 S1 D3 V40 T4 Y1:2                                 ; physical drive 2 goes forwards using default driver timings
+M569 P0 S0 T4 Y1:2                                        ; physical drive 0 goes forwards using default driver timings
+M569 P1 S0 T4 Y1:2                                        ; physical drive 1 goes forwards using default driver timings
+M569 P2 S1 T4 Y1:2                                        ; physical drive 2 goes forwards using default driver timings
 M569 P3 S0 T4 Y1:2 						                  ; physical drive 3 goes forwards using default driver timings
-M569 P4 S1 D3 V40 T4 Y1:2                                 ; physical drive 4 goes forwards using default driver timings
+M569 P4 S1 T4 Y1:2                                        ; physical drive 4 goes forwards using default driver timings
 M584 X0 Y1 Z2:4 E3                                        ; set drive mapping
 M350 X16 Y16 Z16 E16 I1                                   ; configure microstepping with interpolation
 M92 X80.121 Y80.121 Z399.78 E416.54                       ; set steps per mm
@@ -47,14 +47,14 @@ M84 S30                                                   ; Set idle timeout
 ;
 ; M671 defines the position of the lead screws for the Z axis, required to do proper alignment of the Z motors.
 ; =====================================================================================================================
-M671 X-30:340 Y155:155 S3.0                               ; leadscrews at left (connected to Z) and right (connected to E1) of X axis
-M208 X0:310 Y0:310 Z0:380                                 ; set axis limits
+M671 X-28:333 Y147.5:147.5 S3.0                           ; leadscrews at left (connected to Z) and right (connected to E1) of X axis
+M208 X0:305 Y0:305 Z0:380                                 ; set axis limits
 
 ; =====================================================================================================================
 ; Endstops
 ; ========
-M574 X1 S3                                                ; configure sensorless endstop for high end on X
-M574 Y1 S3                                                ; configure sensorless endstop for high end on Y
+M574 X1 S1 P"xstop"                                       ; X min active high endstop switch
+M574 Y1 S1 P"ystop"                                       ; Y min active high endstop switch
 M574 Z1 S2                                                ; configure Zstop as IR height sensor
  
 ; =====================================================================================================================
@@ -70,51 +70,51 @@ M581 T7 P1 S1 R0                                          ; Runs trigger7.g file
 ; =====================================================================================================================
 ; Filament Sensor
 ; ===============
-M591 D0 P1 C"e2stop" S1                                   ; filament monitor connected to power detector
+M591 D0 P1 C"e2stop" S1                                   ; filament monitor connected to e2stop
 
 ; =====================================================================================================================
 ; Z-Probe (IR height detector)
 ; =====================================================================================================================
 M558 P1 C"e1temp" H5 A2 S0.5 F300 T6000                   ; disable Z probe but set dive height, probe speed and travel speed
-G31 P500 X-30 Y5 Z0.77  			       		          ; Probe Offset (0.77)
+G31 P500 X-32 Y5 Z0.77  			       		          ; Probe Offset (0.77)
 
 ; =====================================================================================================================
 ; Mesh Compenstion
 ; =====================================================================================================================
-M557 X10:280 Y10:300 P4                                   ; define mesh grid
+M557 X10:275 Y10:295 P4                                   ; define mesh grid
 M376 H10                                                  ; fade over 10mm
 
 ; =====================================================================================================================
 ; Heaters
 ; =====================================================================================================================
 ; Heatbed
-M308 S0 P"bedtemp" Y"thermistor" T100000 B4092 A"Lit"       ; configure sensor 0 as thermistor on pin bedtemp
-M950 H0 C"bed" T0                              			    ; create bed heater output on bed and map it to sensor 0
-M307 H0 B0 S1.00                               			    ; disable bang-bang mode for the bed heater and set PWM limit
-M140 H0                                        			    ; map heated bed to heater 0
-M143 H0 S150                                   			    ; set temperature limit for heater 0 to 150°C
+M308 S0 P"bedtemp" Y"thermistor" T100000 B4092 A"Lit"     ; configure sensor 0 as thermistor on pin bedtemp
+M950 H0 C"bed" T0                              		      ; create bed heater output on bed and map it to sensor 0
+M307 H0 B0 S1.00                               		      ; disable bang-bang mode for the bed heater and set PWM limit
+M140 H0                                        		      ; map heated bed to heater 0
+M143 H0 S150                                   		      ; set temperature limit for heater 0 to 150°C
 ; Hotend
-M308 S1 P"e0temp" Y"thermistor" T100000 B4092 A"Tête"       ; configure sensor 1 as thermistor on pin e0temp
-M950 H1 C"e0heat" T1                           			    ; create nozzle heater output on e0heat and map it to sensor 1
-M307 H1 B0 S1.00                               			    ; disable bang-bang mode for heater  and set PWM limit
-M143 H1 S275                                   			    ; set temperature limit for heater 1 to 275°C
+M308 S1 P"e0temp" Y"thermistor" T100000 B4092 A"Tête"     ; configure sensor 1 as thermistor on pin e0temp
+M950 H1 C"e0heat" T1                           		      ; create nozzle heater output on e0heat and map it to sensor 1
+M307 H1 B0 S1.00                               		      ; disable bang-bang mode for heater  and set PWM limit
+M143 H1 S275                                   		      ; set temperature limit for heater 1 to 275°C
 
 ; =====================================================================================================================
 ; Heater model parameters
 ; =====================================================================================================================
-M307 H0 A613.5 C1269.2 D7.2 S1.0 V0.0 B0                  ;PLA PID setting 70°c
-M307 H1 A1035 C360.6 D5.5 S1.0 V0.0 B0                    ;PLA PID setting 210°c
+M307 H0 A613.5 C1269.2 D7.2 S1.0 V0.0 B0                  ;PLA PID setting 60°c
+M307 H1 A569.7 C196.0 D5.4 S1.0 V0.0 B0                   ;PLA PID setting 210°c                     
 
 ; =====================================================================================================================
 ; Fans
 ; =====================================================================================================================
 ; The wiring diagram mentioned uses FAN0 connector for the Part Cooling fan, and HE1 for Hotend Cooling. 
 M950 F0 C"fan0" Q100                                      ; create fan 0 on pin fan0 and set its frequency
-M106 P0 S0 H-1 C"Parts Cooling"                            ; set fan 0 value. Thermostatic control is turned off
+M106 P0 S0 H-1 C"Parts Cooling"                           ; set fan 0 value. Thermostatic control is turned off
 M950 F1 C"fan1" T1 Q100                                   ; create extruder fan output (2.4) on e1heat and map it to sensor 1 (T1)
 M106 P1 R1 H1 T45 C"Hotend Cooling"                       ; thermostatically 45C controlled fan from T1 sensor
-M950 F0 C"fan2" Q100                                      ; create fan 0 on pin fan0 and set its frequency
-M106 P0 S0 H-1 C"Motherboard Cooling"                            ; set fan 0 value. Thermostatic control is turned off
+M950 F2 C"fan2" Q100                                      ; create fan 0 on pin fan0 and set its frequency
+M106 P2 S0 H-1 C"Motherboard Cooling"                     ; set fan 0 value. Thermostatic control is turned off
 
 ; =====================================================================================================================
 ; Tools

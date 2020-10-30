@@ -1,2 +1,4 @@
-G90				; absolute positioning
-G1 X159 Y142 Z10 F6000	; move probe to bed center
+if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed
+ G28 XYZ
+G90			            	; absolute positioning
+G1 X184.5 Y147.5 Z10 F6000	; move probe to bed center
