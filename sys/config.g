@@ -26,18 +26,18 @@ M404 N1.75 D0.4                                           ; define filament and 
 ; Chopper Timing: The Marlin default chopper timing for 24V is defined as { 4, 2, 1 }. This is represented below as
 ; T4 Y1:2 parameters.
 ; =====================================================================================================================
-M569 P0 S0 T4 Y1:2                                        ; physical drive 0 goes forwards using default driver timings
-M569 P1 S0 T4 Y1:2                                        ; physical drive 1 goes forwards using default driver timings
-M569 P2 S1 T4 Y1:2                                        ; physical drive 2 goes forwards using default driver timings
-M569 P3 S0 T4 Y1:2 						                  ; physical drive 3 goes forwards using default driver timings
-M569 P4 S1 T4 Y1:2                                        ; physical drive 4 goes forwards using default driver timings
+M569 P0 S0                                                ; physical drive 0 goes forwards using default driver timings
+M569 P1 S0                                                ; physical drive 1 goes forwards using default driver timings
+M569 P2 S1                                                ; physical drive 2 goes forwards using default driver timings
+M569 P3 S0  		     				                  ; physical drive 3 goes forwards using default driver timings
+M569 P4 S1                                                ; physical drive 4 goes forwards using default driver timings
 M584 X0 Y1 Z2:4 E3                                        ; set drive mapping
 M350 X16 Y16 Z16 E16 I1                                   ; configure microstepping with interpolation
 M92 X80.121 Y80.121 Z399.78 E416.54                       ; set steps per mm
-M566 X480 Y480 Z18 E300 P1                                ; set maximum instantaneous speed changes (mm/min)
-M203 X18000 Y18000 Z3000 E2400                            ; set maximum speeds (mm/min)
-M201 X2000 Y2000 Z100 E5000                               ; set accelerations (mm/s^2)
-M204 P800 T2000						                      ; Set accelerations (mm/s^2) for print and travel moves
+M566 X400 Y400 Z18 E300 P1                                ; set maximum instantaneous speed changes (mm/min)
+M203 X15000 Y15000 Z2800 E2400                            ; set maximum speeds (mm/min)
+M201 X1800 Y1600 Z100 E5000                               ; set accelerations (mm/s^2)
+M204 P800 T1600						                      ; Set accelerations (mm/s^2) for print and travel moves
 M906 X1600 Y1600 Z1600 E800 I50                           ; set motor currents (mA) and motor idle factor in per cent
 M84 S30                                                   ; Set idle timeout
 
@@ -152,6 +152,11 @@ M207 S1.5 R0.0 F2100 T2100 Z0.4
 	; 133mm/s = F8000
 
 ; =====================================================================================================================
+; Custom settings
+; =====================================================================================================================
+M912 P0 S-20					                           ; CPU temperature calibration
+
+; =====================================================================================================================
 ;; BTT TFT35 screen
 ; =====================================================================================================================
 M575 P1 S0 B57600                                         ; enable support for BTT TFT35
@@ -162,8 +167,4 @@ M575 P1 S0 B57600                                         ; enable support for B
 M501                                                      ; load saved parameters from non-volatile memory
 T0                                                        ; select first tool
 
-; =====================================================================================================================
-; Startup Tune
-; =====================================================================================================================
-;G4 S10
-;M98 P"0:/macros/Musical Tunes/Startup.g"
+

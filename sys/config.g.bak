@@ -26,11 +26,11 @@ M404 N1.75 D0.4                                           ; define filament and 
 ; Chopper Timing: The Marlin default chopper timing for 24V is defined as { 4, 2, 1 }. This is represented below as
 ; T4 Y1:2 parameters.
 ; =====================================================================================================================
-M569 P0 S0 T4 Y1:2                                        ; physical drive 0 goes forwards using default driver timings
-M569 P1 S0 T4 Y1:2                                        ; physical drive 1 goes forwards using default driver timings
-M569 P2 S1 T4 Y1:2                                        ; physical drive 2 goes forwards using default driver timings
-M569 P3 S0 T4 Y1:2 						                  ; physical drive 3 goes forwards using default driver timings
-M569 P4 S1 T4 Y1:2                                        ; physical drive 4 goes forwards using default driver timings
+M569 P0 S0                                                ; physical drive 0 goes forwards using default driver timings
+M569 P1 S0                                                ; physical drive 1 goes forwards using default driver timings
+M569 P2 S1                                                ; physical drive 2 goes forwards using default driver timings
+M569 P3 S0  		     				                  ; physical drive 3 goes forwards using default driver timings
+M569 P4 S1                                                ; physical drive 4 goes forwards using default driver timings
 M584 X0 Y1 Z2:4 E3                                        ; set drive mapping
 M350 X16 Y16 Z16 E16 I1                                   ; configure microstepping with interpolation
 M92 X80.121 Y80.121 Z399.78 E416.54                       ; set steps per mm
@@ -81,7 +81,7 @@ G31 P500 X-32 Y5 Z0.77  			       		          ; Probe Offset (0.77)
 ; =====================================================================================================================
 ; Mesh Compenstion
 ; =====================================================================================================================
-M557 X10:275 Y10:295 P4                                   ; define mesh grid
+M557 X10:272 Y10:295 P4                                   ; define mesh grid
 M376 H10                                                  ; fade over 10mm
 
 ; =====================================================================================================================
@@ -150,6 +150,12 @@ M207 S1.5 R0.0 F2100 T2100 Z0.4
 	; 100mm/s = F6000
 	; 120mm/s = F7200
 	; 133mm/s = F8000
+
+; =====================================================================================================================
+; Custom settings
+; =====================================================================================================================
+M912 P0 S-10					                           ; CPU temperature calibration
+;M911 S20 R21 P"M913 X0 Y0 G91 M83 G1 Z3 E-5 F1000"         ; set voltage thresholds and actions to run on power loss
 
 ; =====================================================================================================================
 ;; BTT TFT35 screen
