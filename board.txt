@@ -14,11 +14,11 @@
 lpc.board = biqugtr_1.0
 sbc.lpcTfrReadyPin = B.10
 adc.prefilter.enable =true
-serial.aux.rxTxPins = {0.3, 0.2}
+serial.aux.rxTxPins = {PD_9, PD_8}
 
 //LED blinks to indicate Platform is spinning or other diagnostic 
 //Comment out or set to NoPin if not wanted.
-leds.diagnostic = NoPin; 
+leds.diagnostic = A.7; 
 
 //Internal SDCard SPI Frequency.
 lpc.internalSDCard.spiFrequencyHz  = 25000000;
@@ -49,6 +49,9 @@ heat.tempSensePins = {bedtemp, e0temp}; //Max of 3 entries
 //Analogue to Digital prefilter
 adc.prefilter.enable = true
 
+//TMC Smart Drivers
+stepper.numSmartDrivers = 5; //Adjust to the correct number of smart drivers
+//stepper.TmcDiagPins = {PF.2, PC.13}	
 
 	
 
