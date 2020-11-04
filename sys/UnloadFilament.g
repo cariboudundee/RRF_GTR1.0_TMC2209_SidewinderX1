@@ -1,9 +1,10 @@
-;M120
-;Unload Filament
-M83
-G1 E5 F200
-G1 E-20 F1500
-G4 P3000 ; Pause 3 seconds so the filament doesnt cool in the bondtech
-G1 E-100 F1500 
-;T-1
-;M121
+M291 P "chauffage buse" R "Dechargement du filament" T5        ; Message affiché 
+G10 S200                                                       ; Chauffez l'outil actuel à 200C 
+M116                                                           ; Attendre que les températures soient atteintes 
+M291 P "Retrait" R "Dechargement filament" T5                  ; Afficher un autre message 
+G1 E5 F200                                                     ; Extruder 5 mm de filament à 200mm/min
+G1 E-20 F300                                                   ; Rétracter 20 mm de filament à 300 mm / min 
+G1 E-50 F3000                                                  ; Rétracter 50 mm de filament à 3000 mm / min 
+M400                                                           ; Attendez que les coups finissent 
+M292                                                           ; Masquer à nouveau le message 
+M84 E0                                                         ; Éteignez les lecteurs d'extrudeuse 

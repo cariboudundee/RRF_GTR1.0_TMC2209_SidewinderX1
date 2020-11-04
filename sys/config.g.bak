@@ -34,10 +34,10 @@ M569 P4 S1                                                ; physical drive 4 goe
 M584 X0 Y1 Z2:4 E3                                        ; set drive mapping
 M350 X16 Y16 Z16 E16 I1                                   ; configure microstepping with interpolation
 M92 X80.121 Y80.121 Z399.78 E416.54                       ; set steps per mm
-M566 X480 Y480 Z18 E300 P1                                ; set maximum instantaneous speed changes (mm/min)
-M203 X18000 Y18000 Z3000 E2400                            ; set maximum speeds (mm/min)
-M201 X2000 Y2000 Z100 E5000                               ; set accelerations (mm/s^2)
-M204 P800 T2000						                      ; Set accelerations (mm/s^2) for print and travel moves
+M566 X1000 Y1000 Z50 E3000 P1                             ; set maximum instantaneous speed changes (mm/min)
+M203 X15000 Y15000 Z2800 E2400                            ; set maximum speeds (mm/min)
+M201 X1200 Y1200 Z100 E5000                               ; set accelerations (mm/s^2)
+M204 P600 T1000						                      ; Set accelerations (mm/s^2) for print and travel moves
 M906 X1600 Y1600 Z1600 E800 I50                           ; set motor currents (mA) and motor idle factor in per cent
 M84 S30                                                   ; Set idle timeout
 
@@ -154,8 +154,7 @@ M207 S1.5 R0.0 F2100 T2100 Z0.4
 ; =====================================================================================================================
 ; Custom settings
 ; =====================================================================================================================
-M912 P0 S-10					                           ; CPU temperature calibration
-;M911 S20 R21 P"M913 X0 Y0 G91 M83 G1 Z3 E-5 F1000"         ; set voltage thresholds and actions to run on power loss
+M912 P0 S-20					                           ; CPU temperature calibration
 
 ; =====================================================================================================================
 ;; BTT TFT35 screen
@@ -168,8 +167,4 @@ M575 P1 S0 B57600                                         ; enable support for B
 M501                                                      ; load saved parameters from non-volatile memory
 T0                                                        ; select first tool
 
-; =====================================================================================================================
-; Startup Tune
-; =====================================================================================================================
-;G4 S10
-;M98 P"0:/macros/Musical Tunes/Startup.g"
+

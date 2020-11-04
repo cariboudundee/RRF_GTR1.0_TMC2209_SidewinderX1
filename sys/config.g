@@ -34,10 +34,10 @@ M569 P4 S1                                                ; physical drive 4 goe
 M584 X0 Y1 Z2:4 E3                                        ; set drive mapping
 M350 X16 Y16 Z16 E16 I1                                   ; configure microstepping with interpolation
 M92 X80.121 Y80.121 Z399.78 E416.54                       ; set steps per mm
-M566 X400 Y400 Z18 E300 P1                                ; set maximum instantaneous speed changes (mm/min)
+M566 X1000 Y1000 Z50 E3000 P1                             ; set maximum instantaneous speed changes (mm/min)
 M203 X15000 Y15000 Z2800 E2400                            ; set maximum speeds (mm/min)
-M201 X1800 Y1600 Z100 E5000                               ; set accelerations (mm/s^2)
-M204 P800 T1600						                      ; Set accelerations (mm/s^2) for print and travel moves
+M201 X1100 Y1100 Z100 E5000                               ; set accelerations (mm/s^2)
+M204 P600 T1000						                      ; Set accelerations (mm/s^2) for print and travel moves
 M906 X1600 Y1600 Z1600 E800 I50                           ; set motor currents (mA) and motor idle factor in per cent
 M84 S30                                                   ; Set idle timeout
 
